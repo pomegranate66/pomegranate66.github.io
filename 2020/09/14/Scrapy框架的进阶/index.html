@@ -1,0 +1,1414 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="Scrapy框架的进阶, 程序鸭">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>Scrapy框架的进阶 | 程序鸭</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+
+    <script src="/libs/jquery/jquery.min.js"></script>
+
+<meta name="generator" content="Hexo 5.1.1"><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+<script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">程序鸭</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/music" class="waves-effect waves-light">
+      
+      <i class="fas fa-music" style="zoom: 0.6;"></i>
+      
+      <span>Music</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">程序鸭</div>
+        <div class="logo-desc">
+            
+            Never really desperate, only the lost of the soul.
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/music" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-music"></i>
+			
+			Music
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/7.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">Scrapy框架的进阶</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        height: calc(100vh - 250px);
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+
+        position: absolute;
+        right: 23.5vw;
+        display: block;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/%E7%88%AC%E8%99%AB/">
+                                <span class="chip bg-color">爬虫</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/python%E7%88%AC%E8%99%AB/" class="post-category">
+                                python爬虫
+                            </a>
+                        
+                            <a href="/categories/python%E7%88%AC%E8%99%AB/scrapy%E6%A1%86%E6%9E%B6/" class="post-category">
+                                scrapy框架
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2020-09-14
+                </div>
+                
+
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
+                    2020-09-14
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    2.7k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    10 分
+                </div>
+                
+
+                
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="far fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h2 id="CrawlSpiders"><a href="#CrawlSpiders" class="headerlink" title="CrawlSpiders"></a>CrawlSpiders</h2><h4 id="原理图"><a href="#原理图" class="headerlink" title="原理图"></a>原理图</h4><p>start_urls调度器下载器rules数据提取初始化urlrequestresponseresponse新的urlstart_urls调度器下载器rules数据提取</p>
+<p>通过下面的命令可以快速创建 CrawlSpider模板 的代码</p>
+<pre><code>scrapy genspider -t crawl 文件名 (allowed_url)</code></pre>
+<p>首先在说下Spider，它是所有爬虫的基类，而CrawSpiders就是Spider的派生类。对于设计原则是只爬取start_url列表中的网页，而从爬取的网页中获取link并继续爬取的工作CrawlSpider类更适合</p>
+<h3 id="1-Rule对象"><a href="#1-Rule对象" class="headerlink" title="1. Rule对象"></a>1. Rule对象</h3><p>Rule类与CrawlSpider类都位于scrapy.contrib.spiders模块中</p>
+<pre><code>class scrapy.contrib.spiders.Rule (  
+link_extractor, callback=None,cb_kwargs=None,follow=None,process_links=None,process_request=None ) </code></pre>
+<p>参数含义：</p>
+<ul>
+<li>link_extractor为LinkExtractor，用于定义需要提取的链接</li>
+<li>callback参数：当link_extractor获取到链接时参数所指定的值作为回调函数<ul>
+<li>callback参数使用注意： 当编写爬虫规则时，请避免使用parse作为回调函数。于CrawlSpider使用parse方法来实现其逻辑，如果您覆盖了parse方法，crawlspider将会运行失败</li>
+</ul>
+</li>
+<li>follow：指定了根据该规则从response提取的链接是否需要跟进。当callback为None,默认值为True</li>
+<li>process_links：主要用来过滤由link_extractor获取到的链接</li>
+<li>process_request：主要用来过滤在rule中提取到的request</li>
+</ul>
+<h3 id="2-LinkExtractors"><a href="#2-LinkExtractors" class="headerlink" title="2.LinkExtractors"></a>2.LinkExtractors</h3><h4 id="2-1-概念"><a href="#2-1-概念" class="headerlink" title="2.1 概念"></a>2.1 概念</h4><blockquote>
+<p>顾名思义，链接提取器</p>
+</blockquote>
+<h4 id="2-2-作用"><a href="#2-2-作用" class="headerlink" title="2.2 作用"></a>2.2 作用</h4><p>response对象中获取链接，并且该链接会被接下来爬取 每个LinkExtractor有唯一的公共方法是 extract_links()，它接收一个 Response 对象，并返回一个 scrapy.link.Link 对象</p>
+<h4 id="2-3-使用"><a href="#2-3-使用" class="headerlink" title="2.3 使用"></a>2.3 使用</h4><pre><code>class scrapy.linkextractors.LinkExtractor(
+    allow = (),
+    deny = (),
+    allow_domains = (),
+    deny_domains = (),
+    deny_extensions = None,
+    restrict_xpaths = (),
+    tags = ('a','area'),
+    attrs = ('href'),
+    canonicalize = True,
+    unique = True,
+    process_value = None
+)</code></pre>
+<p>主要参数：</p>
+<ul>
+<li>allow：满足括号中“正则表达式”的值会被提取，如果为空，则全部匹配。</li>
+<li>deny：与这个正则表达式(或正则表达式列表)不匹配的URL一定不提取。</li>
+<li>allow_domains：会被提取的链接的domains。</li>
+<li>deny_domains：一定不会被提取链接的domains。</li>
+<li>restrict_xpaths：使用xpath表达式，和allow共同作用过滤链接(只选到节点，不选到属性)</li>
+</ul>
+<h5 id="2-3-1-查看效果（shell中验证"><a href="#2-3-1-查看效果（shell中验证" class="headerlink" title="2.3.1 查看效果（shell中验证)"></a>2.3.1 查看效果（shell中验证)</h5><p>首先运行</p>
+<pre><code>scrapy shell http://www.fhxiaoshuo.com/read/33/33539/17829387.shtml </code></pre>
+<p>继续import相关模块：</p>
+<pre><code>from scrapy.linkextractors import LinkExtractor</code></pre>
+<p>提取当前网页中获得的链接</p>
+<pre><code>link = LinkExtractor(restrict_xpaths=(r'//div[@class="bottem"]/a[4]')</code></pre>
+<p>调用LinkExtractor实例的extract_links()方法查询匹配结果</p>
+<pre><code> link.extract_links(response)</code></pre>
+<h5 id="2-3-2-查看效果-CrawlSpider版本"><a href="#2-3-2-查看效果-CrawlSpider版本" class="headerlink" title="2.3.2 查看效果 CrawlSpider版本"></a>2.3.2 查看效果 CrawlSpider版本</h5><pre><code>from scrapy.linkextractors import LinkExtractor
+from scrapy.spiders import CrawlSpider, Rule
+from xiaoshuo.items import XiaoshuoItem
+
+
+class XiaoshuoSpiderSpider(CrawlSpider):
+    name = 'xiaoshuo_spider'
+    allowed_domains = ['fhxiaoshuo.com']
+    start_urls = ['http://www.fhxiaoshuo.com/read/33/33539/17829387.shtml']
+
+    rules = [
+        Rule(LinkExtractor(restrict_xpaths=(r'//div[@class="bottem"]/a[4]')), callback='parse_item'),]
+
+    def parse_item(self, response):
+        info = response.xpath("//div[@id='TXT']/text()").extract()
+        it = XiaoshuoItem()
+        it['info'] = info
+        yield it</code></pre>
+<p><strong>注意：</strong></p>
+<pre><code> rules = [
+        Rule(LinkExtractor(restrict_xpaths=(r'//div[@class="bottem"]/a[4]')), callback='parse_item'),]</code></pre>
+<ul>
+<li>callback后面函数名用引号引起</li>
+<li>函数名不能是parse</li>
+<li>格式问题</li>
+</ul>
+<h2 id="图片管道的使用"><a href="#图片管道的使用" class="headerlink" title="图片管道的使用"></a>图片管道的使用</h2><h3 id="1-介绍"><a href="#1-介绍" class="headerlink" title="1. 介绍"></a>1. 介绍</h3><p>Scrapy提供了一个 item pipeline ，来下载属于某个特定项目的图片，比如，当你抓取产品时，也想把它们的图片下载到本地。</p>
+<p>这条管道，被称作图片管道，在 <code>ImagesPipeline</code> 类中实现，提供了一个方便并具有额外特性的方法，来下载并本地存储图片:</p>
+<ul>
+<li>将所有下载的图片转换成通用的格式（JPG）和模式（RGB）</li>
+<li>避免重新下载最近已经下载过的图片</li>
+<li>缩略图生成</li>
+<li>检测图像的宽/高，确保它们满足最小限制</li>
+</ul>
+<p>这个管道也会为那些当前安排好要下载的图片保留一个内部队列，并将那些到达的包含相同图片的项目连接到那个队列中。 这可以避免多次下载几个项目共享的同一个图片</p>
+<h3 id="2-使用图片管道"><a href="#2-使用图片管道" class="headerlink" title="2. 使用图片管道"></a>2. 使用图片管道</h3><p>当使用 ImagesPipeline ，典型的工作流程如下所示:</p>
+<ol>
+<li>在一个爬虫里，你抓取一个项目，把其中图片的URL放入 image_urls 组内</li>
+<li>项目从爬虫内返回，进入项目管道</li>
+<li>当项目进入 ImagesPipeline，image_urls 组内的URLs将被Scrapy的调度器和下载器（这意味着调度器和下载器的中间件可以复用）安排下载，当优先级更高，会在其他页面被抓取前处理。项目会在这个特定的管道阶段保持“locker”的状态，直到完成图片的下载（或者由于某些原因未完成下载）。</li>
+<li>当图片下载完，另一个组(images)将被更新到结构中。这个组将包含一个字典列表，其中包括下载图片的信息，比如下载路径、源抓取地址（从 image_urls 组获得）和图片的校验码。 images 列表中的图片顺序将和源 image_urls 组保持一致。如果某个图片下载失败，将会记录下错误信息，图片也不会出现在 images 组中</li>
+</ol>
+<h3 id="3-具体流程-此处以zol网站为例"><a href="#3-具体流程-此处以zol网站为例" class="headerlink" title="3. 具体流程(此处以zol网站为例)"></a>3. 具体流程(此处以zol网站为例)</h3><ol>
+<li>定义item</li>
+</ol>
+<pre><code>import scrapy
+
+
+class ImagedownloadItem(scrapy.Item):
+    # define the fields for your item here like:
+    img_name = scrapy.Field()
+    img_urls =scrapy.Field()</code></pre>
+<ol>
+<li>编写spider</li>
+</ol>
+<blockquote>
+<p>思路：获取文件地址–&gt;获取图片名称–&gt;推送地址</p>
+</blockquote>
+<p>此处是一张一张的推送</p>
+<pre><code>class ZolSpiderSpider(scrapy.Spider):
+    name = 'zol'
+    allowed_domains = ['zol.com.cn']
+    url ='http://desk.zol.com.cn'
+    start_urls = [url+'/bizhi/7106_88025_2.html']
+
+    def parse(self, response):
+        image_url = response.xpath('//img[@id="bigImg"]/@src').extract_first()
+        image_name = response.xpath('//h3')[0].xpath('string(.)').extract_first().strip().replace('\r\n\t\t', '')
+        next_image = response.xpath('//a[@id="pageNext"]/@href').extract_first()
+        item = ImagedownloadItem()
+        item["img_name"] = image_name
+        item["img_urls"] = image_url
+        yield item
+
+        yield scrapy.Request(self.url+next_image,callback=self.parse,)</code></pre>
+<ol>
+<li>编写pipline</li>
+</ol>
+<p>以下如果不想改文件名，meta属性可以忽略不写</p>
+<pre><code>    def get_media_requests(self, item, info):
+        '''
+        #如果item[urls]里里面是列表，用下面
+        urls= item['urls']
+        for url in urls:
+            yield scrapy.Request(url,meta={"item",item})
+        '''
+        # 如果item[urls]里里面是一个图片地址，用这下面的
+        yield scrapy.Request(item['img_urls'], meta={"item": item})</code></pre>
+<p>因为scrapy里是使用它们URL的 SHA1 hash 作为文件名，所以如果想重命名：</p>
+<pre><code>  def file_path(self, request, response=None, info=None):
+        item = request.meta["item"]
+        #去掉文件里的/,避免创建图片文件时出错
+        filename = item["img_name"].replace("/","-")+".jpg"
+
+        return filename</code></pre>
+<ol>
+<li>定义图片保存在哪？ 在settings中增加一句</li>
+</ol>
+<pre><code>IMAGES_STORE = "e:/pics"</code></pre>
+<h2 id="Spider-下载中间件-Middleware"><a href="#Spider-下载中间件-Middleware" class="headerlink" title="Spider 下载中间件(Middleware)"></a>Spider 下载中间件(Middleware)</h2><p>Spider 中间件(Middleware) 下载器中间件是介入到 Scrapy 的 spider 处理机制的钩子框架，您可以添加代码来处理发送给 Spiders 的 response 及 spider 产生的 item 和 request</p>
+<h3 id="1-激活一个下载DOWNLOADER-MIDDLEWARES"><a href="#1-激活一个下载DOWNLOADER-MIDDLEWARES" class="headerlink" title="1. 激活一个下载DOWNLOADER_MIDDLEWARES"></a>1. 激活一个下载DOWNLOADER_MIDDLEWARES</h3><p>要激活一个下载器中间件组件，将其添加到 <code>DOWNLOADER_MIDDLEWARES</code>设置中，该设置是一个字典，其键是中间件类路径，它们的值是中间件命令</p>
+<pre><code>DOWNLOADER_MIDDLEWARES  =  { 
+    'myproject.middlewares.CustomDownloaderMiddleware' ： 543 ，
+}</code></pre>
+<p>该<code>DOWNLOADER_MIDDLEWARES</code>设置与<code>DOWNLOADER_MIDDLEWARES_BASEScrapy</code>中定义的设置（并不意味着被覆盖）合并， 然后按顺序排序，以获得最终的已启用中间件的排序列表：第一个中间件是靠近引擎的第一个中间件，最后一个是靠近引擎的中间件到下载器。换句话说，<code>process_request()</code> 每个中间件的方法将以增加中间件的顺序（100,200,300，…）<code>process_response()</code>被调用，并且每个中间件的方法将以降序调用</p>
+<p>要决定分配给中间件的顺序，请参阅 <code>DOWNLOADER_MIDDLEWARES_BASE</code>设置并根据要插入中间件的位置选择一个值。顺序很重要，因为每个中间件都执行不同的操作，而您的中间件可能依赖于之前（或后续）正在使用的中间件</p>
+<p>如果要禁用内置中间件（<code>DOWNLOADER_MIDDLEWARES_BASE</code>默认情况下已定义和启用的中间件 ），则必须在项目<code>DOWNLOADER_MIDDLEWARES</code>设置中定义它，并将“ 无” 作为其值。例如，如果您要禁用用户代理中间件</p>
+<pre><code>DOWNLOADER_MIDDLEWARES  =  { 
+    'myproject.middlewares.CustomDownloaderMiddleware' ： 543 ，
+    'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware' ： None ，
+}</code></pre>
+<p>最后，请记住，某些中间件可能需要通过特定设置启用</p>
+<h3 id="2-编写你自己的下载中间件"><a href="#2-编写你自己的下载中间件" class="headerlink" title="2. 编写你自己的下载中间件"></a>2. 编写你自己的下载中间件</h3><p>每个中间件组件都是一个Python类，它定义了一个或多个以下方法</p>
+<pre><code>class scrapy.downloadermiddlewares.DownloaderMiddleware</code></pre>
+<blockquote>
+<p>任何下载器中间件方法也可能返回一个延迟</p>
+</blockquote>
+<h4 id="2-1-process-request-self-request-spider"><a href="#2-1-process-request-self-request-spider" class="headerlink" title="2.1 process_request(self, request, spider)"></a>2.1 process_request(self, request, spider)</h4><blockquote>
+<p>当每个request通过下载中间件时，该方法被调用</p>
+</blockquote>
+<p>process_request()必须返回其中之一</p>
+<ul>
+<li>返回 None<ul>
+<li>Scrapy 将继续处理该 request，执行其他的中间件的相应方法，直到合适的下载器处理函数(download handler)被调用，该 request 被执行(其 response 被下载)</li>
+</ul>
+</li>
+<li>返回一个 Response 对象<ul>
+<li>Scrapy 将不会调用 任何 其他的 process_request()或 process_exception()方法，或相应地下载函数； 其将返回该 response。已安装的中间件的 process_response()方法则会在每个 response 返回时被调用</li>
+</ul>
+</li>
+<li>返回一个 Request 对象<ul>
+<li>Scrapy 则停止调用 process_request 方法并重新调度返回的 request。当新返回的 request 被执行后， 相应地中间件链将会根据下载的 response 被调用</li>
+</ul>
+</li>
+<li>raise IgnoreRequest<ul>
+<li>如果抛出 一个 IgnoreRequest 异常，则安装的下载中间件的 process_exception() 方法会被调用。如果没有任何一个方法处理该异常， 则 request 的 errback(Request.errback)方法会被调用。如果没有代码处理抛出的异常， 则该异常被忽略且不记录(不同于其他异常那样)</li>
+</ul>
+</li>
+</ul>
+<p>参数:</p>
+<ul>
+<li>request (Request 对象) – 处理的request</li>
+<li>spider (Spider 对象) – 该request对应的spider</li>
+</ul>
+<h4 id="2-2-process-response-self-request-response-spider"><a href="#2-2-process-response-self-request-response-spider" class="headerlink" title="2.2 process_response(self, request, response, spider)"></a>2.2 process_response(self, request, response, spider)</h4><blockquote>
+<p>当下载器完成http请求，传递响应给引擎的时候调用</p>
+</blockquote>
+<ul>
+<li>process_request() 必须返回以下其中之一: 返回一个 Response 对象、 返回一个 Request 对象或raise一个 IgnoreRequest 异常<ul>
+<li>如果其返回一个 Response (可以与传入的response相同，也可以是全新的对象)， 该response会被在链中的其他中间件的 process_response() 方法处理。</li>
+<li>如果其返回一个 Request 对象，则中间件链停止， 返回的request会被重新调度下载。处理类似于 process_request() 返回request所做的那样。</li>
+<li>如果其抛出一个 IgnoreRequest 异常，则调用request的errback(Request.errback)。 如果没有代码处理抛出的异常，则该异常被忽略且不记录(不同于其他异常那样)。</li>
+</ul>
+</li>
+<li>参数:<ul>
+<li>request (Request 对象) – response所对应的request</li>
+<li>response (Response 对象) – 被处理的response</li>
+<li>spider (Spider 对象) – response所对应的spider</li>
+</ul>
+</li>
+</ul>
+<h3 id="3-使用代理"><a href="#3-使用代理" class="headerlink" title="3 使用代理"></a>3 使用代理</h3><p><a target="_blank" rel="noopener" href="http://settings.py/">settings.py</a></p>
+<pre><code>PROXIES=[
+    {"ip":"122.236.158.78:8118"},
+    {"ip":"112.245.78.90:8118"}
+]
+DOWNLOADER_MIDDLEWARES = {
+    #'xiaoshuo.middlewares.XiaoshuoDownloaderMiddleware': 543,
+    'xiaoshuo.proxyMidde.ProxyMidde':100
+}</code></pre>
+<p>创建一个midderwares</p>
+<pre><code>from xiaoshuo.settings import PROXIES
+import random
+class ProxyMidde(object):
+    def process_request(self, request, spider):
+            proxy = random.choice(PROXIES)
+            request.meta['proxy']='http://'+proxy['ip']</code></pre>
+<p>写一个spider测试</p>
+<pre><code>from scrapy import Spider
+
+
+class ProxyIp(Spider):
+    name = 'ip'
+    #http://www.882667.com/
+    start_urls = ['http://ip.cn']
+
+    def parse(self, response):
+        print(response.text)</code></pre>
+<h3 id="4-使用动态UA"><a href="#4-使用动态UA" class="headerlink" title="4 使用动态UA"></a>4 使用动态UA</h3><pre><code># 随机的User-Agent
+class RandomUserAgent(object):
+    def process_request(self, request, spider):
+        useragent = random.choice(USER_AGENTS)
+
+        request.headers.setdefault("User-Agent", useragent)</code></pre>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">Pomegranate</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="http://pomegranate66.github.io/2020/09/14/Scrapy%E6%A1%86%E6%9E%B6%E7%9A%84%E8%BF%9B%E9%98%B6/">http://pomegranate66.github.io/2020/09/14/Scrapy%E6%A1%86%E6%9E%B6%E7%9A%84%E8%BF%9B%E9%98%B6/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">Pomegranate</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/%E7%88%AC%E8%99%AB/">
+                                    <span class="chip bg-color">爬虫</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <style>
+    #reward {
+        margin: 40px 0;
+        text-align: center;
+    }
+
+    #reward .reward-link {
+        font-size: 1.4rem;
+        line-height: 38px;
+    }
+
+    #reward .btn-floating:hover {
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    #rewardModal {
+        width: 320px;
+        height: 350px;
+    }
+
+    #rewardModal .reward-title {
+        margin: 15px auto;
+        padding-bottom: 5px;
+    }
+
+    #rewardModal .modal-content {
+        padding: 10px;
+    }
+
+    #rewardModal .close {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        color: rgba(0, 0, 0, 0.5);
+        font-size: 1.3rem;
+        line-height: 20px;
+        cursor: pointer;
+    }
+
+    #rewardModal .close:hover {
+        color: #ef5350;
+        transform: scale(1.3);
+        -moz-transform:scale(1.3);
+        -webkit-transform:scale(1.3);
+        -o-transform:scale(1.3);
+    }
+
+    #rewardModal .reward-tabs {
+        margin: 0 auto;
+        width: 210px;
+    }
+
+    .reward-tabs .tabs {
+        height: 38px;
+        margin: 10px auto;
+        padding-left: 0;
+    }
+
+    .reward-content ul {
+        padding-left: 0 !important;
+    }
+
+    .reward-tabs .tabs .tab {
+        height: 38px;
+        line-height: 38px;
+    }
+
+    .reward-tabs .tab a {
+        color: #fff;
+        background-color: #ccc;
+    }
+
+    .reward-tabs .tab a:hover {
+        background-color: #ccc;
+        color: #fff;
+    }
+
+    .reward-tabs .wechat-tab .active {
+        color: #fff !important;
+        background-color: #22AB38 !important;
+    }
+
+    .reward-tabs .alipay-tab .active {
+        color: #fff !important;
+        background-color: #019FE8 !important;
+    }
+
+    .reward-tabs .reward-img {
+        width: 210px;
+        height: 210px;
+    }
+</style>
+
+<div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+        <link rel="stylesheet" href="/libs/gitalk/gitalk.css">
+<link rel="stylesheet" href="/css/my-gitalk.css">
+
+<div class="card gitalk-card" data-aos="fade-up">
+    <div class="comment_headling" style="font-size: 20px; font-weight: 700; position: relative; padding-left: 20px; top: 15px; padding-bottom: 5px;">
+        <i class="fas fa-comments fa-fw" aria-hidden="true"></i>
+        <span>评论</span>
+    </div>
+    <div id="gitalk-container" class="card-content"></div>
+</div>
+
+<script src="/libs/gitalk/gitalk.min.js"></script>
+<script>
+    let gitalk = new Gitalk({
+        clientID: 'fab1c92ee07b20de07a3',
+        clientSecret: '3c04800cb0bbc6b1ddb995b68acf816080cc1cb0',
+        repo: 'pomegranate66.github.io',
+        owner: 'pomegranate66',
+        admin: "pomegranate66",
+        id: '2020-09-14T21-09-49',
+        distractionFreeMode: false  // Facebook-like distraction free mode
+    });
+
+    gitalk.render('gitalk-container');
+</script>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2020/09/14/Scrapy%E6%A1%86%E6%9E%B6%E7%9A%84%E5%88%86%E5%B8%83%E5%BC%8F%E5%AE%9E%E7%8E%B0/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/8.jpg" class="responsive-img" alt="Scrapy框架的分布式实现">
+                        
+                        <span class="card-title">Scrapy框架的分布式实现</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            1. 介绍scrapy-redis框架scrapy-redis
+
+一个三方的基于redis的分布式爬虫框架，配合scrapy使用，让爬虫具有了分布式爬取的功能。
+
+github地址： https://github.com/darkrho/s
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2020-09-14
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/python%E7%88%AC%E8%99%AB/" class="post-category">
+                                    python爬虫
+                                </a>
+                            
+                            <a href="/categories/python%E7%88%AC%E8%99%AB/scrapy%E6%A1%86%E6%9E%B6/" class="post-category">
+                                    scrapy框架
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E7%88%AC%E8%99%AB/">
+                        <span class="chip bg-color">爬虫</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2020/09/14/Scrapy%E6%A1%86%E6%9E%B6%E7%9A%84%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/17.jpg" class="responsive-img" alt="Scrapy框架的基本使用">
+                        
+                        <span class="card-title">Scrapy框架的基本使用</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            1 基本使用1.1 创建项目运行命令: scrapy startproject myfrist（your_project_name）
+ 文件说明：
+
+
+
+名称
+作用
+
+
+
+scrapy.cfg
+项目的配置信息，主要为Scrapy命令行工具提
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-09-14
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/python%E7%88%AC%E8%99%AB/" class="post-category">
+                                    python爬虫
+                                </a>
+                            
+                            <a href="/categories/python%E7%88%AC%E8%99%AB/scrapy%E6%A1%86%E6%9E%B6/" class="post-category">
+                                    scrapy框架
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E7%88%AC%E8%99%AB/">
+                        <span class="chip bg-color">爬虫</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+<!-- 代码块折行 -->
+
+<style type="text/css">
+code[class*="language-"], pre[class*="language-"] { white-space: pre !important; }
+</style>
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+    <div class="container row center-align" style="margin-bottom: 15px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            <!-- Copyright&nbsp;&copy;
+            <span id="year">2020</span>
+            <a href="/about" target="_blank">Pomegranate</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a> -->
+            <!-- |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a> -->
+            <br>
+            
+            &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
+                class="white-color">29.8k</span>&nbsp;字
+            
+            
+            
+            
+            
+            
+            <span id="busuanzi_container_site_pv">
+                |&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;<span id="busuanzi_value_site_pv"
+                    class="white-color"></span>&nbsp;次
+            </span>
+            
+            
+            <span id="busuanzi_container_site_uv">
+                |&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;<span id="busuanzi_value_site_uv"
+                    class="white-color"></span>&nbsp;人
+            </span>
+            
+            <br>
+            
+            <span id="sitetime">载入运行时间...</span>
+            <script language=javascript>
+                function siteTime() {
+                    var seconds = 1000;
+                    var minutes = seconds * 60;
+                    var hours = minutes * 60;
+                    var days = hours * 24;
+                    var years = days * 365;
+                    var today = new Date();
+                    var startYear = "2020";
+                    var startMonth = "08";
+                    var startDate = "5";
+                    var startHour = "0";
+                    var startMinute = "0";
+                    var startSecond = "0";
+                    var todayYear = today.getFullYear();
+                    var todayMonth = today.getMonth() + 1;
+                    var todayDate = today.getDate();
+                    var todayHour = today.getHours();
+                    var todayMinute = today.getMinutes();
+                    var todaySecond = today.getSeconds();
+                    var t1 = Date.UTC(startYear, startMonth, startDate, startHour, startMinute, startSecond);
+                    var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+                    var diff = t2 - t1;
+                    var diffYears = Math.floor(diff / years);
+                    var diffDays = Math.floor((diff / days) - diffYears * 365);
+                    var diffHours = Math.floor((diff - (diffYears * 365 + diffDays) * days) / hours);
+                    var diffMinutes = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours) /
+                        minutes);
+                    var diffSeconds = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours -
+                        diffMinutes * minutes) / seconds);
+                    if (startYear == todayYear) {
+                        document.getElementById("year").innerHTML = todayYear;
+                        document.getElementById("sitetime").innerHTML = "本站已安全运行 " + diffDays + " 天 " + diffHours +
+                            " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+                    } else {
+                        document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                        document.getElementById("sitetime").innerHTML = "本站已安全运行 " + diffYears + " 年 " + diffDays +
+                            " 天 " + diffHours + " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+                    }
+                }
+                setInterval(siteTime, 1000);
+            </script>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/pomegranate66" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:www.wqzhpu@163.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1020708673" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1020708673" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/search.xml", 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    <!-- Baidu Analytics -->
+
+<script>
+    var _hmt = _hmt || [];
+    (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?ae38b915c21f9c82cd77bab0e9d686f5";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    
+    <script type="text/javascript" color="0,0,255"
+        pointColor="0,0,255" opacity='0.7'
+        zIndex="-1" count="99"
+        src="/libs/background/canvas-nest.js"></script>
+    
+
+    
+    
+    <script type="text/javascript" size="150" alpha='0.6'
+        zIndex="-1" src="/libs/background/ribbon.min.js" async="async"></script>
+    
+
+    
+    <script type="text/javascript" src="/libs/background/ribbon-dynamic.js" async="async"></script>
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+    <script type="text/javascript">
+        window.onload = function(){
+            //屏蔽键盘事件
+            document.onkeydown = function (){
+                var e = window.event || arguments[0];
+                //F12
+                if(e.keyCode == 123){
+                    return false;
+                //Ctrl+Shift+I
+                }else if((e.ctrlKey) && (e.shiftKey) && (e.keyCode == 73)){
+                    return false;
+                //Shift+F10
+                }else if((e.shiftKey) && (e.keyCode == 121)){
+                    return false;
+                //Ctrl+U
+                }else if((e.ctrlKey) && (e.keyCode == 85)){
+                    return false;
+                }
+            };
+            //屏蔽鼠标右键
+            document.oncontextmenu = function (){
+                return false;
+            }
+        }
+    </script>
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+
+</html>

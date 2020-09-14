@@ -1,0 +1,1521 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="Python的生成器、装饰器、迭代器, 程序鸭">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>Python的生成器、装饰器、迭代器 | 程序鸭</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+
+    <script src="/libs/jquery/jquery.min.js"></script>
+
+<meta name="generator" content="Hexo 5.1.1"><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+<script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">程序鸭</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/music" class="waves-effect waves-light">
+      
+      <i class="fas fa-music" style="zoom: 0.6;"></i>
+      
+      <span>Music</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">程序鸭</div>
+        <div class="logo-desc">
+            
+            Never really desperate, only the lost of the soul.
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/music" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-music"></i>
+			
+			Music
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/12.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">Python的生成器、装饰器、迭代器</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        height: calc(100vh - 250px);
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+
+        position: absolute;
+        right: 23.5vw;
+        display: block;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/%E7%94%9F%E6%88%90%E5%99%A8/">
+                                <span class="chip bg-color">生成器</span>
+                            </a>
+                        
+                            <a href="/tags/%E8%A3%85%E9%A5%B0%E5%99%A8/">
+                                <span class="chip bg-color">装饰器</span>
+                            </a>
+                        
+                            <a href="/tags/%E8%BF%AD%E4%BB%A3%E5%99%A8/">
+                                <span class="chip bg-color">迭代器</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/python%E5%9F%BA%E7%A1%80/" class="post-category">
+                                python基础
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2020-09-14
+                </div>
+                
+
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
+                    2020-09-14
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    3k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    12 分
+                </div>
+                
+
+                
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="far fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h1 id="生成器和装饰器相关内容"><a href="#生成器和装饰器相关内容" class="headerlink" title="生成器和装饰器相关内容"></a>生成器和装饰器相关内容</h1><h2 id="一、生成器与列表的对照使用"><a href="#一、生成器与列表的对照使用" class="headerlink" title="一、生成器与列表的对照使用"></a>一、生成器与列表的对照使用</h2><h3 id="什么是生成器？（genterator）"><a href="#什么是生成器？（genterator）" class="headerlink" title="什么是生成器？（genterator）"></a>什么是生成器？（genterator）</h3><p>​    genterator:记录一个算法，可以一边计算一边循环的一种机制</p>
+<h3 id="生成器有什么用？"><a href="#生成器有什么用？" class="headerlink" title="生成器有什么用？"></a>生成器有什么用？</h3><p>​    假如存储1-10000中所有的偶数</p>
+<ol>
+<li><h4 id="list"><a href="#list" class="headerlink" title="list"></a>list</h4><pre><code>list1= []
+for i in range(2,10001,2):
+    list1.append(i)
+print(list1)</code></pre>
+<p><strong>列表推导公式:</strong></p>
+<pre><code>list1=[x for x in range(10)]
+print(list1)
+list2= [x for x in range(12) if x % 2 == 0]
+print(list2)
+list3 = [a+b for a in '123' for b in 'XYZ'] 
+# 上述list3在编写代码的过程中不提倡，意图性太差。
+print(list3)</code></pre>
+</li>
+<li><h4 id="使用生成器"><a href="#使用生成器" class="headerlink" title="使用生成器"></a>使用生成器</h4><p>存储数据（存数的算法）</p>
+<h5 id="创建生成器："><a href="#创建生成器：" class="headerlink" title="创建生成器："></a>创建生成器：</h5><ul>
+<li><p>g = （x for x in range(10)） 把列表的方括号变为圆括号。</p>
+<p><code>g1 = (x for x in range(2,100,2))</code></p>
+</li>
+<li><p>在函数中用<strong>yield</strong>关键字转变。</p>
+<pre><code>def test():
+    for x in range(5):
+        yield x 
+        pass
+f = test()
+print(next(f))</code></pre>
+</li>
+</ul>
+<h5 id="生成器中元素访问："><a href="#生成器中元素访问：" class="headerlink" title="生成器中元素访问："></a>生成器中元素访问：</h5><p><strong>如果超出生成器生成数据的范围，会报错：StopIteration</strong></p>
+<ol>
+<li><p>next()<br><code>print(next(g))</code></p>
+</li>
+<li><p>for 循环遍历</p>
+<pre><code>for i in g :  
+    print(i)</code></pre>
+</li>
+<li><p><code>print(g.__next__())</code></p>
+</li>
+<li><p><code>print(g.send(None))</code> 使用send()访问的时候，首个参数必须为None，之后的参数可以随意给。</p>
+</li>
+</ol>
+</li>
+</ol>
+<h3 id="使用生成器的好处？"><a href="#使用生成器的好处？" class="headerlink" title="使用生成器的好处？"></a>使用生成器的好处？</h3><p>​    更省时间、更省内存。</p>
+<p>​    列表方法所消耗时间：</p>
+<pre><code># 时间模块
+import time
+# sys系统模块
+import sys
+# 获取CPU开始计算的时间
+time.clock()
+# 简单的列表推导式
+list2 = [x for x in range(2,100,2) ]
+# CPU工作的时长
+costTime = time.clock()
+print('创建列表耗时：%g'%costTime)
+print('创建列表内存开销：%d'%sys.getsizeof(list2))</code></pre>
+<p>​    生成器所用时：</p>
+<pre><code>time.clock()
+g1 = (x for x in range(2,100,2))
+costTime = time.clock()
+print('创建列表耗时：%g'%costTime)
+print('创建列表内存开销：%d'%sys.getsizeof(g1))</code></pre>
+<h2 id="二、迭代器"><a href="#二、迭代器" class="headerlink" title="二、迭代器"></a>二、迭代器</h2><p>​    <strong>能被next()访问，并不断返回下一个值的对象。</strong></p>
+<h3 id="可迭代性（Iterable）"><a href="#可迭代性（Iterable）" class="headerlink" title="可迭代性（Iterable）"></a>可迭代性（Iterable）</h3><pre><code># 实用举例
+from collections.abc import Iterable
+num = 100
+#使用`isinstance(对象,类)`来判断对象是否为目标类。
+if isinstance(num ,Iterable):
+  for i in num:
+    print(i)
+else:
+  print('num不具有可迭代性')</code></pre>
+<ol>
+<li><p><strong>集合类元素</strong> <code>list,str,dict,tuple</code></p>
+<pre><code>#  检验：（以元组举例）
+tuple1 = (1,2,3)
+print(isinstance(tuple1,Iterable))</code></pre>
+</li>
+<li><p><strong>生成器</strong></p>
+<pre><code># genterator
+g = (x for x in rang(5))
+print(type(g))
+print(isinstance(g,Iterable))</code></pre>
+</li>
+</ol>
+<h3 id="迭代器-（Iterator）"><a href="#迭代器-（Iterator）" class="headerlink" title="迭代器 （Iterator）"></a>迭代器 （Iterator）</h3><p>​    具备可迭代性的元素，就一定是迭代器么？<strong>不一定的！！</strong></p>
+<pre><code>import collection.abd import Iterator
+if isinstance(list1,Iterator):
+    print('list是迭代器')
+else:
+    print('不是')</code></pre>
+<h3 id="Iter-函数"><a href="#Iter-函数" class="headerlink" title="Iter()函数"></a>Iter()函数</h3><p>​    可以让具备可迭代性的对象变成迭代器。<code>list1 = iter(list1)</code></p>
+<h2 id="三、闭包"><a href="#三、闭包" class="headerlink" title="三、闭包*"></a>三、闭包*</h2><h3 id="什么是闭包？"><a href="#什么是闭包？" class="headerlink" title="什么是闭包？"></a>什么是闭包？</h3><p>​    本质上就是个<strong>函数</strong>，但是有点特殊。特殊在创建闭包方面。</p>
+<p>​    <strong>要注意的一点，就是Python中的函数是可以像普通变量一样当做参数传递给下一个函数的。举个栗子！</strong></p>
+<img src="/2020/09/14/Python%E7%9A%84%E7%94%9F%E6%88%90%E5%99%A8%E3%80%81%E8%A3%85%E9%A5%B0%E5%99%A8%E3%80%81%E8%BF%AD%E4%BB%A3%E5%99%A8/20190517155112159.png" class="" width="1557823618257">
+
+<h3 id="如何创建闭包？"><a href="#如何创建闭包？" class="headerlink" title="如何创建闭包？"></a>如何创建闭包？</h3><ol>
+<li>嵌套函数定义（外部函数、内部函数）（一般为两层）</li>
+<li>内部函数使用外部函数定义的变量</li>
+<li>外部函数一定要有返回值，返回内部函数名。</li>
+</ol>
+<h3 id="如何使用闭包？"><a href="#如何使用闭包？" class="headerlink" title="如何使用闭包？"></a>如何使用闭包？</h3><pre><code># 创建闭包，需求：求两个数之和
+def funout(num1):
+  def funin(num2):
+    # 注意：仅限于使用不限于修改，否则会以为内部函数又定义了一个num1变量。或者用nonlocal声明。
+            # 声明以下为外部变量
+            #    nonlocal num1
+    num1 += 1
+    return num1 + num2
+  return funin
+a = 10 
+b =100
+f = funout(a)
+result = f(b)
+print(result)</code></pre>
+<h3 id="应用举例：使用闭包完成求两点之间距离"><a href="#应用举例：使用闭包完成求两点之间距离" class="headerlink" title="应用举例：使用闭包完成求两点之间距离"></a>应用举例：使用闭包完成求两点之间距离</h3><p>分析：两点距离公式为 $$ |d| = \sqrt{(a2-c2)+(b2+d2)} $$</p>
+<pre><code># 方法一：普通函数
+def getDis(x1,y1,x2,y2):
+    # 求两点之间距离
+    return math.sqrt((x1-x2)**2 +(y1-y2)**2)
+#方法二：闭包
+def getDisout(x1,y1):
+    def getDisin(x2,y2):
+        return math.sqrt((x1-x2)**2 +(y1-y2)**2)
+    return getDisin
+
+dis = getDis(0,0,10,10)
+print('(10,10)距离原点的距离为：%g'%dis)
+'''-------------------------------------'''
+getDisIn = getDisout(0,0)
+dis1 = getDisIn(10,10)
+print('(10,10)距离原点的距离为：%g'%dis1)</code></pre>
+<h3 id="闭包的特殊用途"><a href="#闭包的特殊用途" class="headerlink" title="闭包的特殊用途"></a>闭包的特殊用途</h3><p>​    可以<strong>在不修改现有功能源码的前提下，增加新的功能</strong>，比如权限认证（在下载之前，会验证当前的账户是否为付费会员），还有日志功能，以日志功能为例子（统计访问时间，访问功能，写到日志文件中）。</p>
+<pre><code>import time
+# 定义一个记录日志的函数：将访问事件以及访问的函数名写入到文件中（log.txt）
+def write(fun):
+    try:
+        file = open('log.txt','a',encoding='utf-8')
+        # 写入相关数据（访问的函数名，范文的事件）
+        file.write(fun.__name__)
+        file.write('\t')
+        # 写入访问时间
+        file.write(time.asctime())
+        file.write('\t')
+    except Exception as e :
+        print(e.args)
+    finally:
+        # 关闭文件
+        file.close()
+# 闭包
+def funout(fun):
+    def funin():
+        # 新增功能
+        write(fun)
+        fun()
+    return funin  
+# 这是不能动的功能。
+def fun1():
+    print('功能1')
+def fun2():
+    print('功能2')
+# 闭包的调用，注意区别两个fun1的区别！！！
+fun1 = funout(fun1)
+fun2 = funout(fun2)
+# 然后是正常的调用函数
+fun1()
+fun2()</code></pre>
+<p><strong>上述代码相关注释</strong>：</p>
+<ol>
+<li><p>open(name[, mode[, buffering]])，用于打开或者创建一个文件。</p>
+<ul>
+<li>name:文件名。</li>
+<li>mode：打开的模式（只读，写入，追加等）。</li>
+<li>buffering：这个决定文件会不会被寄存。</li>
+</ul>
+<p>详细用法见<a target="_blank" rel="noopener" href="https://www.runoob.com/python/python-func-open.html">https://www.runoob.com/python/python-func-open.html</a></p>
+</li>
+<li><p>time.asctime()返回一个可读形式为:Tue Dec 11 18:07:14 2008（2008年12月11日 周二18时07分14秒）的时间字符串</p>
+</li>
+</ol>
+<p>在编写功能中有一个<strong>开闭原则</strong>：</p>
+<ul>
+<li>开放：添加功能</li>
+<li>关闭：修改源代码，也就是在编写新功能的时候尽量不要去动别人的源代码。</li>
+</ul>
+<h2 id="四、装饰器"><a href="#四、装饰器" class="headerlink" title="四、装饰器"></a>四、装饰器</h2><p>​    和闭包息息相关，结合起来可以让访问更简单。</p>
+<h3 id="装饰器运用"><a href="#装饰器运用" class="headerlink" title="装饰器运用"></a>装饰器运用</h3><p>​    刚才的代码可以用装饰器更加简单的调用。</p>
+<pre><code># 闭包
+def funout(fun):
+    def funin():
+        # 新增功能
+        write(fun)
+        fun()
+    return funin
+# 注意装饰器出现~
+@funout
+def fun1():
+    print('功能1')
+@funout
+def fun2():
+    print('功能2')
+
+# 调用的时候就不用这么麻烦了
+# fun1 = funout(fun1)
+# fun2 = funout(fun2)
+# 然后是正常的调用函数
+fun1()
+fun2()</code></pre>
+<h3 id="装饰器是什么？"><a href="#装饰器是什么？" class="headerlink" title="装饰器是什么？"></a>装饰器是什么？</h3><p>​    举个很污的例子来解释下装饰器。</p>
+<blockquote>
+<p>每个人都有的内裤主要功能是用来遮羞，但是到了冬天它没法为我们防风御寒，咋办？我们想到的一个办法就是把内裤改造一下，让它变得更厚更长，这样一来，它不仅有遮羞功能，还能提供保暖，不过有个问题，这个内裤被我们改造成了长裤后，虽然还有遮羞功能，但本质上它不再是一条真正的内裤了。于是聪明的人们发明长裤，在不影响内裤的前提下，直接把长裤套在了内裤外面，这样内裤还是内裤，有了长裤后宝宝再也不冷了。<strong>装饰器就像我们这里说的长裤，在不影响内裤作用的前提下，给我们的身子提供了保暖的功效。</strong></p>
+</blockquote>
+<h3 id="多重装饰器"><a href="#多重装饰器" class="headerlink" title="多重装饰器"></a>多重装饰器</h3><pre><code>如果函数允许多重装饰的话，那么在装饰的顺序是很严格的！**离得近的先执行，离得远的后执行**，举个栗子~
+# 需求：$《红楼梦》$ 先加书名后加doller
+# 闭包1
+def funcOut(func):
+    def funcIn():
+        return '《'+func()+'》'
+    return funcIn
+ # 闭包2
+def funcOut2(func):
+    def funcIn():
+        return '$'+func()+'$'
+    return funcIn
+# 装饰器2（后执行）
+@funcOut2
+# 装饰器1（先执行）
+@funcOut
+def bookName():
+    return '红楼梦'
+print(bookName())</code></pre>
+<h3 id="指定参数个数的装饰器"><a href="#指定参数个数的装饰器" class="headerlink" title="指定参数个数的装饰器"></a>指定参数个数的装饰器</h3><p>​    说白了就是，目标的函数里面有几个参数，那么闭包的内函数就要有几个参数。</p>
+<pre><code># 打酱油的新增功能？
+def addfunc():
+    print('我是新增功能')
+# 我是闭包，这次我有三个孩子。
+def funcOut(func):
+    def funcIn(x,y,z):
+        # 新增功能
+        addfunc()
+        func(x,y,z)
+    return funcIn
+# 装饰器就是在下
+@funcOut
+# 我是函数，我给你三个种，一个也不能给我丢了！！
+def test(a,b,c):
+    print('a=%g,b=%g,c=%g'%(a,b,c))
+test(1,2,3)</code></pre>
+<h3 id="通用装饰器（-args-kwargs）"><a href="#通用装饰器（-args-kwargs）" class="headerlink" title="通用装饰器（*args,**kwargs）"></a>通用装饰器（*args,**kwargs）</h3><p>​    既然多个参数的目标函数要重新创建一个闭包，那么有没有一个闭包，可以任意个参数呢？当当当~通用装饰器登场！！！</p>
+<pre><code>def funcOut(func):
+  # 要注意啦~(*args,**kwargs)这是任意参数的意思，要记下来哦~
+    def funcIn(*args,**kwargs):
+        # 新功能
+        print('新功能俺有回来了')
+        return func(*args,**kwargs)
+    return funcIn
+@funcOut
+def func1(a,b,c):
+    print(a+b+c)
+@funcOut
+def func2(a,b):
+    print(a+b)
+
+func1(1,2,3)
+func2(5,6)</code></pre>
+<h2 id="五、Python动态添加属性（对象属性、类属性）"><a href="#五、Python动态添加属性（对象属性、类属性）" class="headerlink" title="五、Python动态添加属性（对象属性、类属性）"></a>五、Python动态添加属性（对象属性、类属性）</h2><h4 id="Python是什么语言？"><a href="#Python是什么语言？" class="headerlink" title="Python是什么语言？"></a>Python是什么语言？</h4><ul>
+<li>动态语言： 程序在运行的时候，可以改变其结构，比如添加属性、添加方法、删除函数等等。</li>
+<li>强类型语言： 也叫强类型定义语言，变量的类型在运行时候决定，变量的类型在运行之后是不需要强制转换的。</li>
+</ul>
+<pre><code>##### 动态语言</code></pre>
+<p>下面就用简单的代码来实现动态语言的相关特征。</p>
+<h6 id="添加对象属性"><a href="#添加对象属性" class="headerlink" title="添加对象属性"></a>添加对象属性</h6><pre><code># 添加对象属性。
+class Person():
+    def __init__(self,name,age):
+        self.name = name
+        self.age = age
+p1 = Person('学生1',20)
+#    添加对象属性方法1：
+p1.address ='北京'
+#    添加对象属性方法2：
+setattr(p1,'gender','女')
+#    运行方式1：
+print('姓名为：%s,年龄为：%d,性别：%s,地址为：%s'%(p1.name,p1.age,p1.gender,p1.address))
+#    运行方式2：
+print('姓名为：%s,年龄为：%d,性别：%s,地址为：%s'%(p1.name,p1.age,getattr(p1,'gender'),p1.address))</code></pre>
+<blockquote>
+<p>总结（添加对象属性）：</p>
+<ul>
+<li>添加属性：<ol>
+<li>对象名.属性名 = 值</li>
+<li>setatter(对象名，属性名，值)</li>
+</ol>
+</li>
+<li>输出运行方式:<ol>
+<li>对象名.属性名</li>
+<li>getattr(对象名,属性名)</li>
+</ol>
+</li>
+</ul>
+</blockquote>
+<p>要注意的是：给对象添加对象属性都是指向性的（给谁添加谁就有，其他的没有）涉及到栈内存和堆内存，见下图。</p>
+
+
+<h6 id="添加类属性"><a href="#添加类属性" class="headerlink" title="添加类属性"></a>添加类属性</h6><pre><code>#  添加类属性（类名.类属性 = 值）
+Person.CLS_ID = 110
+print(p1.CLS_ID)
+print(p2.CLS_ID)</code></pre>
+<h6 id="添加对象方法（实例方法、成员方法）"><a href="#添加对象方法（实例方法、成员方法）" class="headerlink" title="添加对象方法（实例方法、成员方法）"></a>添加对象方法（实例方法、成员方法）</h6><p>添加对象方法，要借助一个模块（types）中的MethodType方法。<strong>MethodType（函数名，变量）</strong></p>
+<pre><code># 导入types模块
+import types
+class Person():
+    def __init__(self,name,age):
+        self.name = name
+        self.age = age
+def study(self):
+    print('学习使我快乐，一天不写代码，难受')
+p1 = Person('学生1',18)
+# 添加成员方法
+p1.study = types.MethodType(study,p1)
+p1.study()</code></pre>
+<p><strong>注意</strong>：添加后的方法，只能给p1调用，其他对象不可以调用。</p>
+<h6 id="添加静态方法"><a href="#添加静态方法" class="headerlink" title="添加静态方法"></a>添加静态方法</h6><p>静态方法就是不需要传递参数的方法，且有一个标志：**@staticmethod**，下面给类添加静态方法的代码。</p>
+<pre><code># 添加静态方法
+@staticmethod
+def teststaticmetod():
+    print('我是静态方法')
+# 给类添加静态方法 (类名.静态方法名 = 定义的函数名)
+Person.method1 = teststaticmetod
+# 静态方法的调用 （对象名.静态方法名，或者类名.静态方法名（后者用的较多））
+p1.method1()
+Person.method1()</code></pre>
+<h6 id="添加类方法"><a href="#添加类方法" class="headerlink" title="添加类方法"></a>添加类方法</h6><p>类方法一般就是指在类中定义的方法，不过也可以后来添加，也有一个标志：**@classmethod**，下面给类加类方法的代码。</p>
+<pre><code># 我是后添加的类方法
+@classmethod
+def testClsmethod(cls): 
+      # 类方法一定要有一个参数哦~
+    print('我是类方法')
+# 添加类方法 (类名.类方法名 = 定义的函数名)
+Person.method2 = testClsmethod
+# 访问类方法（对象名.类方法名，或者类名.类方法名（后者用的较多））
+Person.method2()
+p1.method2()</code></pre>
+<p>添加对象方法、静态函数、类方法的原理是基本一致的。不过要注意的是<strong>后边是定义的函数名，而不是定义的函数名（）</strong></p>
+<h6 id="slots的作用"><a href="#slots的作用" class="headerlink" title="slots的作用"></a>slots的作用</h6><pre><code>正确的用法是__slots__</code></pre>
+<ol>
+<li>只对类对象进行限制，不对类进行限制；</li>
+<li>不仅限制类对象的属性，还限制类对象的方法；</li>
+<li>仅对当前的类起作用，对继承的子类不起作用；</li>
+</ol>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">Pomegranate</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="http://pomegranate66.github.io/2020/09/14/Python%E7%9A%84%E7%94%9F%E6%88%90%E5%99%A8%E3%80%81%E8%A3%85%E9%A5%B0%E5%99%A8%E3%80%81%E8%BF%AD%E4%BB%A3%E5%99%A8/">http://pomegranate66.github.io/2020/09/14/Python%E7%9A%84%E7%94%9F%E6%88%90%E5%99%A8%E3%80%81%E8%A3%85%E9%A5%B0%E5%99%A8%E3%80%81%E8%BF%AD%E4%BB%A3%E5%99%A8/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">Pomegranate</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/%E7%94%9F%E6%88%90%E5%99%A8/">
+                                    <span class="chip bg-color">生成器</span>
+                                </a>
+                            
+                                <a href="/tags/%E8%A3%85%E9%A5%B0%E5%99%A8/">
+                                    <span class="chip bg-color">装饰器</span>
+                                </a>
+                            
+                                <a href="/tags/%E8%BF%AD%E4%BB%A3%E5%99%A8/">
+                                    <span class="chip bg-color">迭代器</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <style>
+    #reward {
+        margin: 40px 0;
+        text-align: center;
+    }
+
+    #reward .reward-link {
+        font-size: 1.4rem;
+        line-height: 38px;
+    }
+
+    #reward .btn-floating:hover {
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    #rewardModal {
+        width: 320px;
+        height: 350px;
+    }
+
+    #rewardModal .reward-title {
+        margin: 15px auto;
+        padding-bottom: 5px;
+    }
+
+    #rewardModal .modal-content {
+        padding: 10px;
+    }
+
+    #rewardModal .close {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        color: rgba(0, 0, 0, 0.5);
+        font-size: 1.3rem;
+        line-height: 20px;
+        cursor: pointer;
+    }
+
+    #rewardModal .close:hover {
+        color: #ef5350;
+        transform: scale(1.3);
+        -moz-transform:scale(1.3);
+        -webkit-transform:scale(1.3);
+        -o-transform:scale(1.3);
+    }
+
+    #rewardModal .reward-tabs {
+        margin: 0 auto;
+        width: 210px;
+    }
+
+    .reward-tabs .tabs {
+        height: 38px;
+        margin: 10px auto;
+        padding-left: 0;
+    }
+
+    .reward-content ul {
+        padding-left: 0 !important;
+    }
+
+    .reward-tabs .tabs .tab {
+        height: 38px;
+        line-height: 38px;
+    }
+
+    .reward-tabs .tab a {
+        color: #fff;
+        background-color: #ccc;
+    }
+
+    .reward-tabs .tab a:hover {
+        background-color: #ccc;
+        color: #fff;
+    }
+
+    .reward-tabs .wechat-tab .active {
+        color: #fff !important;
+        background-color: #22AB38 !important;
+    }
+
+    .reward-tabs .alipay-tab .active {
+        color: #fff !important;
+        background-color: #019FE8 !important;
+    }
+
+    .reward-tabs .reward-img {
+        width: 210px;
+        height: 210px;
+    }
+</style>
+
+<div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+        <link rel="stylesheet" href="/libs/gitalk/gitalk.css">
+<link rel="stylesheet" href="/css/my-gitalk.css">
+
+<div class="card gitalk-card" data-aos="fade-up">
+    <div class="comment_headling" style="font-size: 20px; font-weight: 700; position: relative; padding-left: 20px; top: 15px; padding-bottom: 5px;">
+        <i class="fas fa-comments fa-fw" aria-hidden="true"></i>
+        <span>评论</span>
+    </div>
+    <div id="gitalk-container" class="card-content"></div>
+</div>
+
+<script src="/libs/gitalk/gitalk.min.js"></script>
+<script>
+    let gitalk = new Gitalk({
+        clientID: 'fab1c92ee07b20de07a3',
+        clientSecret: '3c04800cb0bbc6b1ddb995b68acf816080cc1cb0',
+        repo: 'pomegranate66.github.io',
+        owner: 'pomegranate66',
+        admin: "pomegranate66",
+        id: '2020-09-14T21-15-11',
+        distractionFreeMode: false  // Facebook-like distraction free mode
+    });
+
+    gitalk.render('gitalk-container');
+</script>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2020/09/14/Python%E7%9A%84%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="Python的函数式编程">
+                        
+                        <span class="card-title">Python的函数式编程</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            函数式编程range的使用​    range()可以创建一个整数的列表，多数用在for循环中，一般是有两种格式：
+
+range(stop)    默认从0开始，直到stop-1结束。
+range(start[,stop,step])   
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2020-09-14
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/python%E5%9F%BA%E7%A1%80/" class="post-category">
+                                    python基础
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/range%E7%AD%89%E5%87%BD%E6%95%B0%E7%9A%84%E4%BD%BF%E7%94%A8/">
+                        <span class="chip bg-color">range等函数的使用</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2020/09/14/Scrapy%E6%A1%86%E6%9E%B6%E7%9A%84%E5%88%86%E5%B8%83%E5%BC%8F%E5%AE%9E%E7%8E%B0/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/8.jpg" class="responsive-img" alt="Scrapy框架的分布式实现">
+                        
+                        <span class="card-title">Scrapy框架的分布式实现</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            1. 介绍scrapy-redis框架scrapy-redis
+
+一个三方的基于redis的分布式爬虫框架，配合scrapy使用，让爬虫具有了分布式爬取的功能。
+
+github地址： https://github.com/darkrho/s
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-09-14
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/python%E7%88%AC%E8%99%AB/" class="post-category">
+                                    python爬虫
+                                </a>
+                            
+                            <a href="/categories/python%E7%88%AC%E8%99%AB/scrapy%E6%A1%86%E6%9E%B6/" class="post-category">
+                                    scrapy框架
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E7%88%AC%E8%99%AB/">
+                        <span class="chip bg-color">爬虫</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+<!-- 代码块折行 -->
+
+<style type="text/css">
+code[class*="language-"], pre[class*="language-"] { white-space: pre !important; }
+</style>
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+    <div class="container row center-align" style="margin-bottom: 15px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            <!-- Copyright&nbsp;&copy;
+            <span id="year">2020</span>
+            <a href="/about" target="_blank">Pomegranate</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a> -->
+            <!-- |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a> -->
+            <br>
+            
+            &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
+                class="white-color">29.8k</span>&nbsp;字
+            
+            
+            
+            
+            
+            
+            <span id="busuanzi_container_site_pv">
+                |&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;<span id="busuanzi_value_site_pv"
+                    class="white-color"></span>&nbsp;次
+            </span>
+            
+            
+            <span id="busuanzi_container_site_uv">
+                |&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;<span id="busuanzi_value_site_uv"
+                    class="white-color"></span>&nbsp;人
+            </span>
+            
+            <br>
+            
+            <span id="sitetime">载入运行时间...</span>
+            <script language=javascript>
+                function siteTime() {
+                    var seconds = 1000;
+                    var minutes = seconds * 60;
+                    var hours = minutes * 60;
+                    var days = hours * 24;
+                    var years = days * 365;
+                    var today = new Date();
+                    var startYear = "2020";
+                    var startMonth = "08";
+                    var startDate = "5";
+                    var startHour = "0";
+                    var startMinute = "0";
+                    var startSecond = "0";
+                    var todayYear = today.getFullYear();
+                    var todayMonth = today.getMonth() + 1;
+                    var todayDate = today.getDate();
+                    var todayHour = today.getHours();
+                    var todayMinute = today.getMinutes();
+                    var todaySecond = today.getSeconds();
+                    var t1 = Date.UTC(startYear, startMonth, startDate, startHour, startMinute, startSecond);
+                    var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+                    var diff = t2 - t1;
+                    var diffYears = Math.floor(diff / years);
+                    var diffDays = Math.floor((diff / days) - diffYears * 365);
+                    var diffHours = Math.floor((diff - (diffYears * 365 + diffDays) * days) / hours);
+                    var diffMinutes = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours) /
+                        minutes);
+                    var diffSeconds = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours -
+                        diffMinutes * minutes) / seconds);
+                    if (startYear == todayYear) {
+                        document.getElementById("year").innerHTML = todayYear;
+                        document.getElementById("sitetime").innerHTML = "本站已安全运行 " + diffDays + " 天 " + diffHours +
+                            " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+                    } else {
+                        document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                        document.getElementById("sitetime").innerHTML = "本站已安全运行 " + diffYears + " 年 " + diffDays +
+                            " 天 " + diffHours + " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+                    }
+                }
+                setInterval(siteTime, 1000);
+            </script>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/pomegranate66" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:www.wqzhpu@163.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1020708673" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1020708673" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/search.xml", 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    <!-- Baidu Analytics -->
+
+<script>
+    var _hmt = _hmt || [];
+    (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?ae38b915c21f9c82cd77bab0e9d686f5";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    
+    <script type="text/javascript" color="0,0,255"
+        pointColor="0,0,255" opacity='0.7'
+        zIndex="-1" count="99"
+        src="/libs/background/canvas-nest.js"></script>
+    
+
+    
+    
+    <script type="text/javascript" size="150" alpha='0.6'
+        zIndex="-1" src="/libs/background/ribbon.min.js" async="async"></script>
+    
+
+    
+    <script type="text/javascript" src="/libs/background/ribbon-dynamic.js" async="async"></script>
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+    <script type="text/javascript">
+        window.onload = function(){
+            //屏蔽键盘事件
+            document.onkeydown = function (){
+                var e = window.event || arguments[0];
+                //F12
+                if(e.keyCode == 123){
+                    return false;
+                //Ctrl+Shift+I
+                }else if((e.ctrlKey) && (e.shiftKey) && (e.keyCode == 73)){
+                    return false;
+                //Shift+F10
+                }else if((e.shiftKey) && (e.keyCode == 121)){
+                    return false;
+                //Ctrl+U
+                }else if((e.ctrlKey) && (e.keyCode == 85)){
+                    return false;
+                }
+            };
+            //屏蔽鼠标右键
+            document.oncontextmenu = function (){
+                return false;
+            }
+        }
+    </script>
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+
+</html>
